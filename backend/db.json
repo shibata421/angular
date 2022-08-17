@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Caneta BIC Preta",
-      "price": 5.89
+      "price": "5.00"
     },
     {
       "id": 2,
@@ -12,8 +12,8 @@
     },
     {
       "id": 3,
-      "name": "Samsung S20+",
-      "price": 5000.89
+      "name": "Samsung S20+ Ultra",
+      "price": "7000.00"
     },
     {
       "id": 4,
@@ -26,19 +26,14 @@
       "id": 5
     },
     {
-      "name": "teste",
-      "price": "89",
-      "id": 6
-    },
-    {
-      "name": "outro",
-      "price": "80",
-      "id": 7
-    },
-    {
       "name": "lápis preto",
       "price": ".5",
       "id": 8
+    },
+    {
+      "id": 9,
+      "name": "teste",
+      "price": "123"
     }
   ]
 }
