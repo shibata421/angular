@@ -4,42 +4,14 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { Product } from '../product.model';
+import { ProductService } from '../product.service';
 
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: Product[] = [
-  {id: 1, name: 'Hydrogen', price: 9.99},
-  {id: 2, name: 'Helium', price: 9.99},
-  {id: 3, name: 'Lithium', price: 9.99},
-  {id: 4, name: 'Beryllium', price: 9.99},
-  {id: 5, name: 'Boron', price: 9.99},
-  {id: 6, name: 'Carbon', price: 9.99},
-  {id: 7, name: 'Nitrogen', price: 9.99},
-  {id: 8, name: 'Oxygen', price: 9.99},
-  {id: 9, name: 'Fluorine', price: 9.99},
-  {id: 10, name: 'Neon', price: 9.99},
-  {id: 11, name: 'Sodium', price: 9.99},
-  {id: 12, name: 'Magnesium', price: 9.99},
-  {id: 13, name: 'Aluminum', price: 9.99},
-  {id: 14, name: 'Silicon', price: 9.99},
-  {id: 15, name: 'Phosphorus', price: 9.99},
-  {id: 16, name: 'Sulfur', price: 9.99},
-  {id: 17, name: 'Chlorine', price: 9.99},
-  {id: 18, name: 'Argon', price: 9.99},
-  {id: 19, name: 'Potassium', price: 9.99},
-  {id: 20, name: 'Calcium', price: 9.99},
-];
-
-/**
- * Data source for the ProductRead2 view. This class should
- * encapsulate all logic for fetching and manipulating the displayed data
- * (including sorting, pagination, and filtering).
- */
-export class ProductRead2DataSource extends DataSource<Product> {
-  data: Product[] = EXAMPLE_DATA;
+export class ProductReadDataSource extends DataSource<Product> {
+  data: Product[] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor() {
+  constructor(private productService: ProductService) {
     super();
   }
 
@@ -74,6 +46,8 @@ export class ProductRead2DataSource extends DataSource<Product> {
   private getPagedData(data: Product[]): Product[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+      console.log(data)
+      console.log(data.splice(startIndex, this.paginator.pageSize))
       return data.splice(startIndex, this.paginator.pageSize);
     } else {
       return data;
@@ -85,7 +59,13 @@ export class ProductRead2DataSource extends DataSource<Product> {
    * this would be replaced by requesting the appropriate data from the server.
    */
   private getSortedData(data: Product[]): Product[] {
-    if (!this.sort || !this.sort.active || this.sort.direction === '') {
+    if (!this.sort || !this.sort.active || this.sort.direction === '') {    
+      this.productService
+        .read()
+        .subscribe(products => {
+          this.data = products
+        })
+        
       return data;
     }
 
