@@ -1,3 +1,4 @@
+import { HeaderService } from './../../template/header/header.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
@@ -13,8 +14,15 @@ export class ProductReadComponent implements OnInit {
   displayedColumns = ['id', 'name', 'price', 'action']
 
   constructor(
-    private productService: ProductService
-  ) { }
+    private productService: ProductService,
+    headerService: HeaderService
+  ) {
+    headerService.headerData = {
+      title: 'Cadastro de Produtos',
+      icon: 'storefront',
+      routeUrl: '/products'
+    }
+  }
 
   ngOnInit(): void {
     this.productService
